@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body class="bg-black-10 sansserif fg-white">
+        <nav class="row sticky t-0 l-0 w-100p bg-white-40 px-2 py-1 fs-15">
+            <p class="col-9 px-2 text-start tablet-col-12">FeatherCSS</p>
+            <div class="col-3 row tablet-none">
+                <div class="col-6 text-end"><a href="#" class="decoration-none fg-white fg-white-50-hover">Hakkımızda</a></div>
+                <div class="col-6 text-end"><a href="#" class="decoration-none fg-white fg-white-50-hover">Özellikler</a></div>
+            </div>
+        </nav>
+        <div class="w-500 my-4 mx-auto text-center">
+            <p id="alertClick" class="transition-03 fg-red-hover decoration-underline-hover cursor-pointer inline-block">Bu yazıya tıklayarak bir uyarı çıkarabilirsiniz.</p>
+
+            <div id="alertBox" class="none fixed t-150 l-50p px-3 py-15 fg-lime bg-green radius-1 translate-center cursor-pointer">
+                Harika! Bu kutuya tıklayarak yok edebilirsin.
+            </div>
+
+            <div class="flex direction-row gap-1">
+                <div class="w-150 border-color-black radius-1 overflow-hidden mx-auto mt-4">
+                    <img src="https://picsum.photos/350/250?random=img1" class="w-100p">
+                    <div class="p-1 bg-white-90 fg-black-10">
+                        <p class="font-bold fs-15 mb-05 text-start">Kart Yapısı Örneği</p>
+                        <p class="text-start">Bu da sıradan bir kart yapısı.</p>
+                    </div>
+                </div>
+                <div class="w-150 border-color-black radius-1 overflow-hidden mx-auto mt-4">
+                    <img src="https://picsum.photos/350/250?random=img2" class="w-100p">
+                    <div class="p-1 bg-white-90 fg-black-10">
+                        <p class="font-bold fs-15 mb-05 text-start">Kart Yapısı Örneği</p>
+                        <p class="text-start">Bu da sıradan bir kart yapısı.</p>
+                    </div>
+                </div>
+                <div class="w-150 border-color-black radius-1 overflow-hidden mx-auto mt-4">
+                    <img src="https://picsum.photos/350/250?random=img3" class="w-100p">
+                    <div class="p-1 bg-white-90 fg-black-10">
+                        <p class="font-bold fs-15 mb-05 text-start">Kart Yapısı Örneği</p>
+                        <p class="text-start">Bu da sıradan bir kart yapısı.</p>
+                    </div>
+                </div>
+            </div>
+
+            <p class="mt-100">Bana ulaşmak için aşağıdaki formu kullanabilirsiniz.</p>
+            <form class="flex direction-column gap-1 mt-1">
+                <div class="row tablet-gap-1">
+                    <input type="text" class="col-6 tablet-col-12 py-05 px-1 bg-gray fg-white radius-1 border-color-white placeholder-white transition-03 bg-black-hover" placeholder="Adınız">
+                    <input type="tel" class="col-6 tablet-col-12 py-05 px-1 bg-gray fg-white radius-1 border-color-white placeholder-white transition-03 bg-black-hover" placeholder="Numaranız">
+                </div>
+                <input type="email" class="py-05 px-1 bg-gray fg-white radius-1 border-color-white placeholder-white transition-03 bg-black-hover" placeholder="E-postanız">
+                <textarea placeholder="Konu" class="w-100p py-05 px-1 bg-gray fg-white radius-1 border-color-white placeholder-white transition-03 bg-black-hover"></textarea>
+                <button type="submit" class="py-05 px-1 bg-gray fg-white radius-1 border-color-white transition-03 bg-black-hover cursor-pointer">Formu Doğrula</button>    
+            </form>
+
+            <p class="mt-5">İsterseniz temayı aşağıdaki tuşla değiştirebilirsiniz.</p>
+            <button type="button" id="themeButton" class="py-05 px-1 bg-gray fg-white radius-1 border-color-white transition-03 bg-black-hover cursor-pointer my-1">Değiştir</button>
+            <br>
+            <label>
+                <span>veya checkbox da kullanabilirsiniz.</span>
+                <input type="checkbox" id="themeCheckbox">
+            </label>
+
+            <p class="mt-5">Bu tuşla da menüyü açabilirsiniz.</p>
+            <button type="button" id="menuButton" class="py-05 px-1 bg-gray fg-white radius-1 border-color-white transition-03 bg-black-hover cursor-pointer my-1">Menüyü Aç</button>
+        </div>
+
+        <script type="module">
+            import { ArdaLib, $ } from "./ardalib.js";
+
+            $("button[type=submit]").addEventListener("click", e => {
+                e.preventDefault();
+
+                let result = ArdaLib.validateForm($("form"));
+                if (result.error) return alert(result.error);
+                alert("Başarılı!");
+            });
+
+            $("#themeButton").addEventListener("click", () => {
+                ArdaLib.toggleTheme();
+                themeCheckbox.checked = !themeCheckbox.checked;
+            });
+
+            let themeCheckbox = $("#themeCheckbox");
+            themeCheckbox.addEventListener("change", e => {
+                console.log(e);
+                ArdaLib.setTheme(e.target.checked ? "white" : "black");
+            });
+
+            $("#menuButton").addEventListener("click", () => {
+                ArdaLib.toggleMenu();
+            });
+
+            let alertClick = $("#alertClick");
+            let alertBox = $("#alertBox");
+
+            alertClick.addEventListener("click", () => {
+                alertBox.style.display = "block";
+            });
+            
+            alertBox.addEventListener("click", () => {
+                alertBox.style.display = "";
+            });
+        </script>
+    </body>
+</html>

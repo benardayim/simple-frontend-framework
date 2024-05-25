@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "feathercss-compiler": "github:benardayim/feathercss"
+  }
+}
